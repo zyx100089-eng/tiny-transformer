@@ -1,0 +1,123 @@
+experiment,variant,train_mean,train_std,val_mean,val_std,params,time_s,sample
+context_length,16,2.0337386616071065,0.004878955337273184,2.0918579729398092,0.01075875778674107,109121,95.3,"
+
+On thear tee beawn this manded gron deref to cos's frest end his ing the our lrefor not for Richwall itios home,
+To boord not it to the gractery hou these a for hing be
+God comer of immber dow soom "
+context_length,32,1.9691347042719523,0.011404538648506966,2.044561687310537,0.009769553327019643,110145,86.4,"
+
+Pay that telf sawn this murded a my dade, to and with so eld his own thenes lerver the coumper peall it
+There off a bone my uting our ther,
+For and ell sway flepor
+Me inre he slay will by slow. All "
+context_length,64,1.9370756363868713,0.023088919711835788,2.011616942882538,0.015459552449979713,112193,111.4,"
+
+OF LENIUT:
+And awn this mand ings thes then bath's frese elings to to heave ler's.
+
+LUCO:
+Lich peall it bout come and are her it this the hearss hour fase a foulve
+chinghan coust of immen: dow sould"
+num_heads,1,1.901881641546885,0.017253796258786012,1.9850501958529154,0.019996782932782186,112193,69.6,"
+I a wather eave awn this murd: I whouth then band's frase enders to to he will refort?
+
+But I coust umposes houlds and are nour this they lacter's the fase a for his the
+man coust of im by slow stome"
+num_heads,2,1.9104541738828023,0.011730602720276036,1.9948531810442607,0.01037482400927439,112193,86.1,"
+That that unist awites it made of me date my the 'er best end his own the our preforth.
+
+DULIRCHACH:
+Sitirs hou, that one my unight I fanclace of hour for to for his the
+man coust of im:
+What where, "
+num_heads,4,1.9370756435394287,0.023088916805721452,2.011616948445638,0.015459538014167731,112193,132.6,"
+
+OF LENIUT:
+And awn this mand ings thes then bath's frese elings to to heave ler's.
+
+LUCO:
+Lich peall it bout come and are her it this the hearss hour fase a foulve
+chinghan coust of immen: dow sould"
+num_layers,1,1.9369639817873636,0.004896922113130761,2.0288338621457416,0.0019243806083148963,62401,43.4,"
+Had Thater: if sawn this ment ingry brate,
+If and with sa be shis own then
+Prear's ton mut my copeatuminsss houlds
+To onre noution Aur ther, thought, you.
+Bothou hing sidy I comer of immby sly hever "
+num_layers,2,1.9370756467183432,0.023088926234764332,2.011616950829824,0.015459552011244711,112193,122.9,"
+
+OF LENIUT:
+And awn this mand ings thes then bath's frese elings to to heave ler's.
+
+LUCO:
+Lich peall it bout come and are her it this the hearss hour fase a foulve
+chinghan coust of immen: dow sould"
+num_layers,4,1.8910561807950337,0.007542284825789109,1.9766362992922464,0.002535248675024252,211777,494.6,"
+That tay with beard this minded gonceds thence
+Is'er, do peringst own then clear's ton.
+
+DULIRCE:
+O, mist seas, to atcon, my ut this they lacke sond,
+To slove ouph ale it the to a owerd:
+What whe his"
+positional_encoding,True,1.9370756483078002,0.0230889255913427,2.011616946856181,0.01545953932402513,112193,138.0,"
+
+OF LENIUT:
+And awn this mand ings thes then bath's frese elings to to heave ler's.
+
+LUCO:
+Lich peall it bout come and are her it this the hearss hour fase a foulve
+chinghan coust of immen: dow sould"
+positional_encoding,False,2.1802584950129194,0.012877203983479607,2.2321234957377114,0.012906285425176094,108097,43.1,"
+
+
+F Thaaurte his willt il mat ingh thes thenou bl's fres peenthit
+Ant thenoull re Hethe coun Rof walle tinser cotopatyon,
+Ther it tour ther cherighe e fase a fouph ach imy I coula on.
+
+CRICABO:
+Bedit"
+regularisation,"d=0.0,lr=constant",1.937075649102529,0.023088921841952957,2.0116169341405232,0.015459564029835053,112193,32.5,"
+
+OF LENIUT:
+And awn this mand ings thes then bath's frese elings to to heave ler's.
+
+LUCO:
+Lich peall it bout come and are her it this the hearss hour fase a foulve
+chinghan coust of immen: dow sould"
+regularisation,"d=0.1,lr=cosine",2.1961163155237835,0.01143860024427258,2.20847864151001,0.0035786432458433204,112193,42.6,"
+Frour alls forthan gelite by, thou thanks be hove Gore Cowhar,
+Fove gof toun to sos to ved pling hennst omery
+Why our ath be pras byebe abitss rilontis,
+Whe yourten boor to tat kind keey at hem lante"
+regularisation,"d=0.2,lr=cosine",2.301394979159037,0.014837272777315152,2.3038736820220946,0.00935750896142349,112193,72.8,"
+FLYENBEN:
+Mar than gelith byou.
+MUS:
+Thesis be ve Gate CELUS:
+Whave goke the tour sher vedeplin atennst wacor thyo ir alo be prasply.
+Shabits I plont thaly we wotend oor the ath do thor hit hem lare "
+tokeniser,char,1.9370756483078004,0.023088923128797213,2.0116169540087383,0.015459552686230215,112193,356.6,"
+
+OF LENIUT:
+And awn this mand ings thes then bath's frese elings to to heave ler's.
+
+LUCO:
+Lich peall it bout come and are her it this the hearss hour fase a foulve
+chinghan coust of immen: dow sould"
+tokeniser,bpe_200,3.1696020936965943,0.012794493716931052,3.4769570223490396,0.013763418883334592,137993,78.3,"
+I thin my fadsleman be more inceices
+Englest for Bivingman meing and as. Hase me; thee saws;
+For every faying, if you sidning; and he spals,
+And that ine pluter lest in riphy
+That well me; as and the"
+tokeniser,bpe_500,3.6844531281789146,0.00873954956184973,4.003275340398153,0.009527015816409249,176693,145.9,"
+I'll such my aimous mins reptal, whies,
+Tis deads'd?
+
+CLurder:
+O h-hone
+Of all my miture oft; and makes her king--
+The bon your hast, to bother in my steart;
+But in powmust aughter, but he will
+For t"
