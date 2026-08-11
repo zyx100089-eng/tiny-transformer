@@ -36,7 +36,7 @@ That what and should this roighter home a thy bone
 Which and the to will frown in than thy laone.
 ```
 
-*(See `results/generated_samples.txt` for full samples — character names, verse structure, and period vocabulary are captured despite the model's small size.)*
+*(See `results/generated_samples.txt` for full samples — the CAPS: dialogue format and verse structure are captured, though character names come out garbled (e.g. "QUEEN MVIUS:") at this model size.)*
 
 ## Research Question
 

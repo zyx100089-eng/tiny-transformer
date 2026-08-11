@@ -105,6 +105,7 @@ def run_variant_multi_seed(dataset, device, seeds, **kwargs) -> dict:
         "val_std": statistics.stdev(val_losses) if len(val_losses) > 1 else 0.0,
         "params": results[0]["params"],
         "time_s": round(statistics.mean(times), 1),
+        # sample text is from the first seed only (representative, not averaged)
         "sample": results[0]["sample"],
     }
 

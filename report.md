@@ -199,7 +199,7 @@ Deeper models perform better, with 4 layers achieving the lowest validation loss
 | With | 2.012 ± 0.016 |
 | Without | 2.232 ± 0.013 |
 
-Removing positional encoding degrades validation loss by 0.22 — the largest single-factor effect in the ablation study. Without positional information, the model cannot distinguish token order, so it cannot learn that character names appear at the start of lines or that punctuation follows certain patterns. The generated text without positional encoding also shows noticeably worse structure, with garbled character names and broken formatting.
+Removing positional encoding degrades validation loss by 0.22 — the largest effect among the architectural ablations (dropout 0.2 degrades it by 0.29, but that experiment also changes the LR schedule; see the regularisation section). Without positional information, the model cannot distinguish token order, so it cannot learn that character names appear at the start of lines or that punctuation follows certain patterns. The generated text without positional encoding also shows noticeably worse structure, with garbled character names and broken formatting.
 
 #### Regularisation (dropout + cosine LR schedule)
 
@@ -209,7 +209,7 @@ Removing positional encoding degrades validation loss by 0.22 — the largest si
 | 0.1 | cosine | 2.208 ± 0.004 | 2.196 |
 | 0.2 | cosine | 2.304 ± 0.009 | 2.301 |
 
-This experiment produced a surprising result: adding dropout *hurts* performance at this model scale. Without regularisation, the train-val gap is 0.075 — already small. With dropout=0.1, both train and val loss *increase* substantially, and the gap nearly vanishes (0.008). With dropout=0.2, the effect is even stronger.
+This experiment produced a surprising result: adding dropout *hurts* performance at this model scale. One caveat: the variants confound dropout with the LR schedule — d=0.0 uses a constant LR, while d=0.1/d=0.2 use cosine with warmup. The cosine schedule should if anything *help* (it is the better schedule in the training-log comparison), so the degradation is unlikely to be an artefact of the schedule change, but the two factors are not cleanly separated. Without regularisation, the train-val gap is 0.075 — already small. With dropout=0.1, both train and val loss *increase* substantially, and the gap nearly vanishes (0.012). With dropout=0.2, the effect is even stronger.
 
 **Interpretation**: A 112K-parameter model trained on 1M characters is **underfitting**, not overfitting. The model lacks the capacity to memorise the training data, so regularisation is counterproductive — it restricts the model's already-limited capacity without addressing any generalisation problem. The near-zero train-val gap with dropout confirms this: the model has no memorisation to prevent. This is an important finding: regularisation strategies that work for large models (which overfit) can harm small models (which underfit).
 
@@ -229,7 +229,7 @@ A fairer comparison would use **bits-per-character** (BPC): normalise the loss b
 
 ### Key findings
 
-1. **Positional encoding is the most important component** tested. Removing it degrades validation loss by 0.22 — the largest effect in the study. This confirms that self-attention alone is permutation-equivariant and needs explicit position information.
+1. **Positional encoding is the most important architectural component** tested. Removing it degrades validation loss by 0.22 — the largest effect among the architectural ablations (the dropout 0.2 variant degrades it by 0.29, but that experiment confounds dropout with the LR schedule). This confirms that self-attention alone is permutation-equivariant and needs explicit position information.
 
 2. **Context length matters more than model depth** for this task. Increasing context from 16 to 64 tokens reduced validation loss by 0.08, comparable to tripling the number of layers (0.05).
 
@@ -237,7 +237,7 @@ A fairer comparison would use **bits-per-character** (BPC): normalise the loss b
 
 4. **Deeper models help with diminishing returns.** Going from 1 to 4 layers reduces val loss by 0.05, but requires 3.4× more parameters. The low standard deviation (0.003) confirms this is a stable finding.
 
-5. **Regularisation hurts small models.** Adding dropout=0.1 increased val loss from 2.01 to 2.21. The near-zero train-val gap (0.008 with dropout) reveals the model is underfitting, not overfitting, at 2000 iterations. This demonstrates that regularisation is only beneficial when the model has sufficient capacity to overfit — a key insight about the relationship between model scale and regularisation strategy.
+5. **Regularisation hurts small models.** Adding dropout=0.1 increased val loss from 2.01 to 2.21. The near-zero train-val gap (0.012 with dropout) reveals the model is underfitting, not overfitting, at 2000 iterations. This demonstrates that regularisation is only beneficial when the model has sufficient capacity to overfit — a key insight about the relationship between model scale and regularisation strategy.
 
 6. **BPE tokenisation requires fair comparison metrics.** Raw cross-entropy losses are not comparable across different vocabulary sizes. BPE's higher loss is partly due to its larger vocabulary (higher random baseline). A fair comparison requires bits-per-character normalisation, left as future work.
 
