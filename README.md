@@ -42,6 +42,15 @@ Which and the to will frown in than thy laone.
 
 How do context length, number of attention heads, positional encoding, regularisation, and tokenisation strategy affect the performance of a small Transformer language model?
 
+**A note on "from scratch":** the architecture (attention, blocks,
+training loop, BPE) is written from first principles in PyTorch —
+PyTorch provides the tensor ops and autograd, which my other projects
+(autodiff engine, CNN) deliberately avoid. I used it here because the
+ablations needed to run at speed, and I wanted to see whether my
+from-scratch understanding survived in a fast framework. It did — the
+model is the same one I'd hand-written elsewhere, with better
+numerics.
+
 ## What This Implements
 
 - **Character-level tokenizer** (encode/decode) with save/load
