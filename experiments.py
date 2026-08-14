@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from dataset import TextDataset
 from model import TinyTransformer
 from train import estimate_loss, get_device
+from bigram import bigram_loss
 
 
 def run_experiment(
@@ -124,6 +125,21 @@ def run_all_experiments(
     results_dir.mkdir(exist_ok=True)
 
     experiments = []
+
+    # --- Bigram baseline (no parameters, exact validation loss) ---
+    bigram_val = bigram_loss(dataset)
+    print(f"\nBigram baseline: val loss = {bigram_val:.4f}")
+    experiments.append({
+        "experiment": "baseline",
+        "variant": "bigram",
+        "train_mean": bigram_val,
+        "train_std": 0.0,
+        "val_mean": bigram_val,
+        "val_std": 0.0,
+        "params": 0,
+        "time_s": 0.0,
+        "sample": "",
+    })
 
     # --- Context length ---
     for block_size in (16, 32, 64):

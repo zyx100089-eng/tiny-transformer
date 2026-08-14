@@ -138,12 +138,22 @@ All experiments run across 3 random seeds and report mean ± standard deviation:
 
 | Experiment | Variants |
 |---|---|
+| Baseline | bigram (0 parameters, exact validation loss) |
 | Context length | 16 vs 32 vs 64 |
 | Attention heads | 1 vs 2 vs 4 |
 | Number of layers | 1 vs 2 vs 4 |
 | Positional encoding | with vs without |
 | Regularisation | none vs dropout=0.1+cosine vs dropout=0.2+cosine |
 | Tokeniser | character vs BPE(200) vs BPE(500) |
+
+The **bigram baseline** (`bigram.py`) is the standard reference point
+for "did the model learn anything": it counts P(next | current) on
+the training split and evaluates the exact cross-entropy on
+validation — no parameters, no training. On Tiny Shakespeare the
+bigram validation loss is **2.51**, while the default transformer
+reaches **~2.04** — the model genuinely learns beyond token
+co-occurrence statistics, and every ablation variant can be read
+against that floor.
 
 Results are saved to `results/ablation_results.csv` and `results/ablation_plots.png`.
 Attention heatmaps are saved to `results/attention/`.
@@ -154,6 +164,7 @@ Attention heatmaps are saved to `results/attention/`.
 ├── model.py           # Transformer architecture (attention, blocks, full model)
 ├── tokenizer.py       # Character-level tokenizer
 ├── bpe_tokenizer.py   # Byte-pair encoding tokenizer (from scratch)
+├── bigram.py          # Bigram baseline (0-parameter reference point)
 ├── dataset.py         # Text loading, batch creation, tokenizer selection
 ├── train.py           # Training loop with cosine LR schedule, loss logging
 ├── generate.py        # Autoregressive text generation
@@ -168,7 +179,9 @@ Attention heatmaps are saved to `results/attention/`.
 - Small model (~112K parameters) — not comparable to production LLMs
 - Single small dataset (1MB Shakespeare)
 - BPE implementation does not pre-tokenise on whitespace
-- No comparison with RNN/LSTM baselines
+- No comparison with RNN/LSTM baselines (the bigram baseline covers
+  the "did it learn anything" question; an LSTM comparison is a
+  natural extension)
 
 ## References
 
