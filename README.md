@@ -4,7 +4,26 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A small Transformer language model implemented from first principles in PyTorch, trained on character-level Shakespeare text, with ablation experiments investigating architectural design choices.
+A small Transformer language model implemented from first principles
+in PyTorch, trained on character-level Shakespeare text, with
+multi-seed ablation experiments investigating architectural design
+choices.
+
+## The question
+
+How do context length, number of attention heads, positional encoding,
+regularisation, and tokenisation strategy affect the performance of a
+small Transformer language model?
+
+## A note on "from scratch"
+
+The architecture (attention, blocks, training loop, BPE tokeniser) is
+written from first principles in PyTorch. PyTorch provides the tensor
+ops and autograd, which my other projects (autodiff engine, CNN)
+deliberately avoid. I used it here because the ablations needed to run
+at speed, and I wanted to see whether my from-scratch understanding
+survived in a fast framework. It did — the model is the same one I'd
+hand-written elsewhere, with better numerics.
 
 ## Results
 
@@ -40,20 +59,9 @@ That what and should this roighter home a thy bone
 Which and the to will frown in than thy laone.
 ```
 
-*(See `results/generated_samples.txt` for full samples — the CAPS: dialogue format and verse structure are captured, though character names come out garbled (e.g. "QUEEN MVIUS:") at this model size.)*
-
-## Research Question
-
-How do context length, number of attention heads, positional encoding, regularisation, and tokenisation strategy affect the performance of a small Transformer language model?
-
-**A note on "from scratch":** the architecture (attention, blocks,
-training loop, BPE) is written from first principles in PyTorch —
-PyTorch provides the tensor ops and autograd, which my other projects
-(autodiff engine, CNN) deliberately avoid. I used it here because the
-ablations needed to run at speed, and I wanted to see whether my
-from-scratch understanding survived in a fast framework. It did — the
-model is the same one I'd hand-written elsewhere, with better
-numerics.
+*(See `results/generated_samples.txt` for full samples — the CAPS:
+dialogue format and verse structure are captured, though character
+names come out garbled (e.g. "QUEEN MVIUS:") at this model size.)*
 
 ## What This Implements
 
