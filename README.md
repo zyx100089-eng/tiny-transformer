@@ -155,9 +155,10 @@ for "did the model learn anything": it counts P(next | current) on
 the training split and evaluates the exact cross-entropy on
 validation — no parameters, no training. On Tiny Shakespeare the
 bigram validation loss is **2.51**, while the default transformer
-reaches **~2.04** — the model genuinely learns beyond token
-co-occurrence statistics, and every ablation variant can be read
-against that floor.
+reaches **~2.01** (3-seed mean at 2000 iterations, see
+`results/ablation_results.csv`) — the model genuinely learns beyond
+token co-occurrence statistics, and every ablation variant can be
+read against that floor.
 
 Results are saved to `results/ablation_results.csv` and `results/ablation_plots.png`.
 Attention heatmaps are saved to `results/attention/`.
