@@ -1,44 +1,25 @@
 # Tiny Transformer from Scratch
 
 [![Tests](https://github.com/zyx100089-eng/tiny-transformer/actions/workflows/tests.yml/badge.svg)](https://github.com/zyx100089-eng/tiny-transformer/actions/workflows/tests.yml)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A small Transformer language model implemented from first principles
-in PyTorch, trained on character-level Shakespeare text, with
-multi-seed ablation experiments investigating architectural design
-choices.
-
-## The question
-
-How do context length, number of attention heads, positional encoding,
-regularisation, and tokenisation strategy affect the performance of a
-small Transformer language model?
-
-## A note on "from scratch"
-
-The architecture (attention, blocks, training loop, BPE tokeniser) is
-written from first principles in PyTorch. PyTorch provides the tensor
-ops and autograd, which my other projects (autodiff engine, CNN)
-deliberately avoid. I used it here because the ablations needed to run
-at speed, and I wanted to see whether my from-scratch understanding
-survived in a fast framework. It did — the model is the same one I'd
-hand-written elsewhere, with better numerics.
+A small character-level Transformer language model trained on Tiny
+Shakespeare, with multi-seed ablations on context length, heads,
+positional encoding, regularisation, and tokenisation. The architecture
+(attention, blocks, training loop, BPE tokeniser) is written from first
+principles; PyTorch supplies only the tensor ops and autograd (which my
+other projects deliberately avoid) — used here because the ablations
+needed to run at speed.
 
 ## Results
 
 ### Training loss curve
-
 ![Training Loss Curve](results/loss_curves.png)
 
 ### Ablation study (3 seeds, mean ± std)
-
 ![Ablation Plots](results/ablation_plots.png)
 
 ### Attention weight heatmaps
-
 ![Attention Heatmaps](results/attention/attention_heatmaps.png)
-
 ![Attention Averaged by Layer](results/attention/attention_avg_by_layer.png)
 
 ### Generated text samples
@@ -63,70 +44,39 @@ Which and the to will frown in than thy laone.
 dialogue format and verse structure are captured, though character
 names come out garbled (e.g. "QUEEN MVIUS:") at this model size.)*
 
-## What This Implements
+## What it implements
 
-- **Character-level tokenizer** (encode/decode) with save/load
-- **Byte-pair encoding (BPE) tokenizer** implemented from scratch with greedy merge learning
-- Token and positional embeddings with optional dropout
-- Scaled dot-product self-attention with causal masking
-- Multi-head attention with per-head dropout
-- Feed-forward network with GELU activation and dropout
-- Transformer blocks with pre-norm residual connections
-- Cosine learning rate schedule with warmup
-- Autoregressive text generation with temperature sampling
-- Attention weight visualisation (per-head and per-layer heatmaps)
-- Multi-seed ablation experiments reporting mean ± std
+Character-level tokenizer and a from-scratch byte-pair encoding (BPE)
+tokenizer with greedy merge learning. Token/positional embeddings,
+scaled dot-product self-attention with causal masking, multi-head
+attention, GELU feed-forward, pre-norm residual blocks, dropout
+throughout. Cosine LR schedule with warmup, temperature-sampled
+generation, attention heatmaps, multi-seed ablations (mean ± std).
 
-## Setup
+## Run it
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-```
 
-Download training data (Tiny Shakespeare):
-
-```bash
+# Download training data (Tiny Shakespeare)
 mkdir -p data
 curl -sL "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt" -o data/input.txt
-```
 
-## Usage
-
-Train the model:
-
-```bash
-# Default (no regularisation)
+# Train (default: no regularisation)
 python train.py
-
-# With dropout and cosine LR schedule
 python train.py --dropout 0.1 --lr_schedule cosine
-```
 
-Generate text:
-
-```bash
 python generate.py --prompt "ROMEO:" --temperature 0.8
-```
 
-Visualise attention weights:
-
-```bash
+# Visualise attention weights
 python visualize.py --prompt "ROMEO:\nTo be, or n"
-```
 
-Run ablation experiments (multi-seed, includes regularisation and tokeniser comparisons):
-
-```bash
+# Ablations (multi-seed; regularisation and tokeniser comparisons)
 python experiments.py
-# Or with custom seeds / iterations:
 python experiments.py --seeds 42 123 777 --max_iters 2000
-```
 
-Run tests:
-
-```bash
 python -m pytest tests/ -v
 ```
 
@@ -171,30 +121,19 @@ read against that floor.
 Results are saved to `results/ablation_results.csv` and `results/ablation_plots.png`.
 Attention heatmaps are saved to `results/attention/`.
 
-## Project Structure
+Layout: `model.py` (architecture), `tokenizer.py`, `bpe_tokenizer.py`
+(BPE from scratch), `bigram.py` (baseline), `dataset.py`, `train.py`,
+`generate.py`, `experiments.py`, `visualize.py`, plus `tests/` and
+`results/`.
 
-```
-├── model.py           # Transformer architecture (attention, blocks, full model)
-├── tokenizer.py       # Character-level tokenizer
-├── bpe_tokenizer.py   # Byte-pair encoding tokenizer (from scratch)
-├── bigram.py          # Bigram baseline (0-parameter reference point)
-├── dataset.py         # Text loading, batch creation, tokenizer selection
-├── train.py           # Training loop with cosine LR schedule, loss logging
-├── generate.py        # Autoregressive text generation
-├── experiments.py     # Multi-seed ablation experiments
-├── visualize.py       # Attention weight visualisation (heatmaps)
-├── tests/             # Unit tests (attention, tokenizer, model, dropout, BPE)
-└── results/           # Loss curves, generated samples, ablation results, attention plots
-```
-
-## Limitations
+## Known limits
 
 - Small model (~112K parameters) — not comparable to production LLMs
 - Single small dataset (1MB Shakespeare)
 - BPE implementation does not pre-tokenise on whitespace
-- No comparison with RNN/LSTM baselines (the bigram baseline covers
-  the "did it learn anything" question; an LSTM comparison is a
-  natural extension)
+- No comparison with RNN/LSTM baselines (the bigram baseline covers the
+  "did it learn anything" question; an LSTM comparison is a natural
+  extension)
 
 ## References
 
